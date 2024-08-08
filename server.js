@@ -5,9 +5,9 @@ const morgan = require('morgan')
 const cors = require('cors')
 const bodyParse = require('body-parser')
 
-const connectDB = require('./config/db')
+// const connectDB = require('./Config/db')
 
-connectDB()
+// connectDB()
 
 app.use(morgan('dev'))
 app.use(cors())
