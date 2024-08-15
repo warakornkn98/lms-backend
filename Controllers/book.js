@@ -1,11 +1,11 @@
 const conn = require('../Config/db')
 
 exports.getBook = async (req, res) => {
-    const { book_id } = req.params;
-
+    const {id} = req.params;
+    
     try {
         const sql = "SELECT * FROM book WHERE book_id = ?";
-        conn.execute(sql, [book_id], (err, results) => {
+        conn.execute(sql, [id], (err, results) => {
             if (err) {
                 return res.status(500).json({ message: err.message });
             }
@@ -34,11 +34,11 @@ exports.getAllBooks = async (req, res) => {
 };
 
 exports.createBook = async (req, res) => {
-    const { book_name, book_desc, booktype_id, author_id, publisher_id } = req.body;
+    const { book_name, book_desc, booktype , author , publisher , publis_year,price ,total_quantity,aviable_quantity } = req.body;
 
     try {
-        const sql = "INSERT INTO book (book_name, book_desc, booktype_id, author_id, publisher_id) VALUES (?, ?, ?, ?, ?)";
-        conn.execute(sql, [book_name, book_desc, booktype_id, author_id, publisher_id], (err, result) => {
+        const sql = "INSERT INTO book (book_name, book_desc, book_type , author , publisher , publis_year,price ,total_quantity,aviable_quantity) VALUES (?, ?, ?,?, ?, ?,?, ?, ?)";
+        conn.execute(sql, [book_name, book_desc, booktype , author , publisher , publis_year,price ,total_quantity,aviable_quantity], (err, result) => {
             if (err) {
                 return res.status(500).json({ message: err.message });
             }
@@ -50,12 +50,12 @@ exports.createBook = async (req, res) => {
 };
 
 exports.updateBook = async (req, res) => {
-    const { book_id } = req.params;
-    const { book_name, book_desc, book_type, author, publisher } = req.body;
+    const { id } = req.params;
+    const { book_name, book_desc, total_quantity } = req.body;
 
     try {
-        const sql = "UPDATE book SET book_name = ?, book_desc = ?, book_type = ?, author = ?, publisher = ? WHERE book_id = ?";
-        conn.execute(sql, [book_name, book_desc, book_type, author, publisher, book_id], (err, result) => {
+        const sql = "UPDATE book SET book_name = ?, book_desc = ?, total_quatity = ? WHERE book_id = ?";
+        conn.execute(sql, [book_name, book_desc,total_quantity,id], (err, result) => {
             if (err) {
                 return res.status(500).json({ message: err.message });
             }
@@ -70,19 +70,19 @@ exports.updateBook = async (req, res) => {
 };
 
 exports.deleteBook = async (req, res) => {
-    const { book_id } = req.params;
+    const { id } = req.params;
 
     try {
         // Delete associated book items first (to maintain referential integrity)
         const deleteBookItemsSql = "DELETE FROM bookitem WHERE book_id = ?";
-        conn.execute(deleteBookItemsSql, [book_id], (err, result) => {
+        conn.execute(deleteBookItemsSql, [id], (err, result) => {
             if (err) {
                 return res.status(500).json({ message: err.message });
             }
 
             // Then delete the book
             const deleteBookSql = "DELETE FROM book WHERE book_id = ?";
-            conn.execute(deleteBookSql, [book_id], (err, result) => {
+            conn.execute(deleteBookSql, [id], (err, result) => {
                 if (err) {
                     return res.status(500).json({ message: err.message });
                 }

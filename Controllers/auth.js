@@ -17,7 +17,7 @@ exports.register = async(req,res)=>{
 
         bcrypt.genSalt(saltRounds, (err, salt) => {
             bcrypt.hash(password, salt, (err, hash) => {
-                let sql = "INSERT INTO user (username, password, role) VALUES (?, ?, ?)"
+                let sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)"
                 conn.execute(sql,
                     [username, hash, role],
                     (err, result) => {
@@ -74,7 +74,7 @@ exports.login = async (req, res) => {
         }
 
         // Check for the user in the database
-        const sql = "SELECT * FROM user WHERE username = ?";
+        const sql = "SELECT * FROM users WHERE username = ?";
         conn.execute(sql, [username], async (err, results) => {
             if (err) {
                 return res.status(500).json({

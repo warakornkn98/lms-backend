@@ -5,10 +5,10 @@ const router =  express.Router()
 
 //1.Route for register and login.
 
-router.get('/book',getAllBooks)
-router.get('/book/:id',getBook)
-router.post('/addbook',createBook)
-router.put('/updatebook/:id',updateBook)
-router.delete('/deletebook/:id',deleteBook)
+router.get('/books',getAllBooks)
+router.get('/books/:id',getBook)
+router.post('/books',createBook)
+router.put('/books/:id',updateBook)
+router.delete('/books/:id',deleteBook)
 
 module.exports = router
