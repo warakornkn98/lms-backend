@@ -4,7 +4,7 @@ const conn = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "root",
-    database: "test"
+    database: "lms"
   });
 
 const connectDB = async()=>{
@@ -13,7 +13,7 @@ const connectDB = async()=>{
           host: "localhost",
           user: "root",
           password: "root",
-          database: "test"
+          database: "lms"
         });
         console.log('DB Connected')
     }catch(err){
